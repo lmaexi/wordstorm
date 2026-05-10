@@ -2,7 +2,6 @@
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /*
@@ -26,6 +25,8 @@ public class GameFrame extends javax.swing.JFrame {
    
     int score = 0;
     int mistakes = 0;
+    static int highScore = 0;
+    long startTime;
 
     boolean[] visible = {true, true, true, true, true, true, true};
     
@@ -68,7 +69,16 @@ public class GameFrame extends javax.swing.JFrame {
                             
                             timer.stop();
                             
-                            resultsFrame rf = new resultsFrame();
+                            long endTime = System.currentTimeMillis();
+                            long survivedMilliseconds = endTime - startTime;
+                            long survivedSeconds = survivedMilliseconds / 1000;
+
+                            long minutes = survivedSeconds / 60;
+                            long seconds = survivedSeconds % 60;
+
+                            String timeFormatted = minutes + ":" + String.format("%02d", seconds);
+                            
+                            resultsFrame rf = new resultsFrame(score, mistakes, highScore, timeFormatted);
                             rf.setVisible(true);
                             
                             dispose();
@@ -80,6 +90,8 @@ public class GameFrame extends javax.swing.JFrame {
             }
             repaint();
         });
+        
+        startTime = System.currentTimeMillis();
         
         timer.start();
     }
@@ -123,6 +135,7 @@ public class GameFrame extends javax.swing.JFrame {
         mistakeField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         currentHighScore = new javax.swing.JLabel();
+        currentHighScoreField = new javax.swing.JTextField();
         pauseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,9 +162,14 @@ public class GameFrame extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(162, 188, 224));
 
-        currentHighScore.setFont(new java.awt.Font("MS UI Gothic", 0, 14)); // NOI18N
+        currentHighScore.setFont(new java.awt.Font("MS UI Gothic", 0, 20)); // NOI18N
         currentHighScore.setForeground(new java.awt.Color(0, 0, 0));
         currentHighScore.setText("Highest Score:");
+
+        currentHighScoreField.setBackground(new java.awt.Color(162, 188, 224));
+        currentHighScoreField.setFont(new java.awt.Font("MS UI Gothic", 0, 19)); // NOI18N
+        currentHighScoreField.setForeground(new java.awt.Color(0, 0, 0));
+        currentHighScoreField.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -160,14 +178,18 @@ public class GameFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(currentHighScore)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(currentHighScoreField)
+                .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(currentHighScore)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(currentHighScore)
+                    .addComponent(currentHighScoreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pauseButton.setBackground(new java.awt.Color(204, 204, 255));
@@ -181,26 +203,28 @@ public class GameFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(scoreLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scoreField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scoreField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(mistakeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(mistakeField, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(397, 397, 397)
+                        .addComponent(pauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(typeField, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,6 +269,12 @@ public class GameFrame extends javax.swing.JFrame {
                 
                 visible[i] = false; //this will make the word disappear.
                 score++;
+                
+                if (score > highScore) {
+                    highScore = score;
+                }
+                
+                currentHighScoreField.setText(String.valueOf(highScore));
                 
                 scoreField.setText(String.valueOf(score));
                 
@@ -294,6 +324,7 @@ public class GameFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel currentHighScore;
+    private javax.swing.JTextField currentHighScoreField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField mistakeField;
