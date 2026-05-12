@@ -41,8 +41,6 @@ public class tutorialFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,17 +105,6 @@ public class tutorialFrame extends javax.swing.JFrame {
         jTextArea3.setMargin(new java.awt.Insets(2, 6, -45, 6));
         jScrollPane3.setViewportView(jTextArea3);
 
-        jTextArea4.setBackground(new java.awt.Color(204, 204, 255));
-        jTextArea4.setColumns(20);
-        jTextArea4.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        jTextArea4.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea4.setRows(5);
-        jTextArea4.setText("• Focus on the words closest to the bottom first\n\n• Build combos by typing words quickly without mistakes\n\n• Save powerups for when the screen gets crowded\n\n• Watch out for red forbidden words - they look tempting!");
-        jTextArea4.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        jTextArea4.setFocusable(false);
-        jTextArea4.setMargin(new java.awt.Insets(2, 6, -45, 6));
-        jScrollPane4.setViewportView(jTextArea4);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,7 +127,6 @@ public class tutorialFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,9 +153,7 @@ public class tutorialFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addGap(212, 212, 212))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,10 +219,8 @@ public class tutorialFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
     // End of variables declaration//GEN-END:variables
 }
