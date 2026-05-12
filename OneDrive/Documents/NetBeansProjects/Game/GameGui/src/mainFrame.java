@@ -33,85 +33,45 @@ public class mainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainPanel = new javax.swing.JPanel();
         gameName = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         playbutton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        mainPanel.setBackground(new java.awt.Color(162, 188, 224));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         gameName.setBackground(new java.awt.Color(0, 51, 51));
-        gameName.setFont(new java.awt.Font("Impact", 0, 44)); // NOI18N
+        gameName.setFont(new java.awt.Font("Pix32", 1, 60)); // NOI18N
         gameName.setForeground(new java.awt.Color(0, 51, 51));
         gameName.setText("WORDSTORM");
+        getContentPane().add(gameName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 310, 70));
 
-        playbutton.setBackground(new java.awt.Color(204, 204, 255));
-        playbutton.setFont(new java.awt.Font("MS UI Gothic", 3, 19)); // NOI18N
-        playbutton.setForeground(new java.awt.Color(0, 0, 0));
-        playbutton.setText("PLAY");
-        playbutton.addActionListener(this::playbuttonActionPerformed);
-
-        settingsButton.setBackground(new java.awt.Color(204, 204, 255));
-        settingsButton.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
-        settingsButton.setForeground(new java.awt.Color(0, 0, 0));
-        settingsButton.setText("HOW TO PLAY");
-        settingsButton.addActionListener(this::settingsButtonActionPerformed);
-
-        jLabel1.setFont(new java.awt.Font("MS UI Gothic", 2, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Pix32", 2, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("Type the falling words before they hit the ground!");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(gameName))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel1))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(settingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(240, Short.MAX_VALUE))
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(gameName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(42, 42, 42)
-                .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(settingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(231, Short.MAX_VALUE))
-        );
+        playbutton.setBackground(new java.awt.Color(204, 204, 255));
+        playbutton.setFont(new java.awt.Font("Pix32", 3, 19)); // NOI18N
+        playbutton.setText("PLAY");
+        playbutton.addActionListener(this::playbuttonActionPerformed);
+        getContentPane().add(playbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 191, 62));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        settingsButton.setBackground(new java.awt.Color(204, 204, 255));
+        settingsButton.setFont(new java.awt.Font("Pix32", 3, 18)); // NOI18N
+        settingsButton.setText("HOW TO PLAY");
+        settingsButton.addActionListener(this::settingsButtonActionPerformed);
+        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, 191, 59));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sky.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 600));
+
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -160,7 +120,8 @@ public class mainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel gameName;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton playbutton;
     private javax.swing.JButton settingsButton;
     // End of variables declaration//GEN-END:variables
