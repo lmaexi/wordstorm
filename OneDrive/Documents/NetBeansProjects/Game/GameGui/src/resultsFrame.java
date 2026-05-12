@@ -307,8 +307,8 @@ public class resultsFrame extends javax.swing.JFrame {
 
     private void playAgainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAgainButtonActionPerformed
         // TODO add your handling code here:
-        GameFrame mf = new GameFrame();
-        mf.setVisible(true);
+        gameModeFrame gmf = new gameModeFrame();
+        gmf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_playAgainButtonActionPerformed
 

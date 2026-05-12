@@ -18,17 +18,17 @@ public class GameFrame extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GameFrame.class.getName());
     
-    String[] words = {"HELLO", "JAVA", "CODE", "GAME", "MOUSE", "KEYBOARD", "SCREEN"};
+    String[] words;
     
-    int[] x = {50, 100, 250, 350, 100, 200, 300};
-    int[] y = {-50, -200, -190, -260, -330, -400, -460};
+    int[] x ;
+    int[] y ;
    
     int score = 0;
     int mistakes = 0;
-    static int highScore = 0;
+    static int highScore;
     long startTime;
 
-    boolean[] visible = {true, true, true, true, true, true, true};
+    boolean[] visible;
     
     javax.swing.Timer timer;
     
@@ -52,12 +52,75 @@ public class GameFrame extends javax.swing.JFrame {
         mistakeField.setText("0");
         
         setLocationRelativeTo(null);
+        
+    }
+    
+    private String currentDifficulty;
+    
+    public void startGame(String difficulty) {
+        
+        switch (difficulty){
+            case "EASY" -> words = new String[]{
+                    "RUBY", "PHP", "STAR", "BEAR", "SHOE",
+                    "CAKE", "BREAD", "APPLE", "CHAIR", "TABLE",
+                    "WIND", "SMILE", "LAUGH", "DARK", "YELLOW",
+                    "JUMP", "SWIM", "DANCE", "DREAM", "CAR"
+                };
+                
+            case "MEDIUM" -> words = new String[]{
+                "METHODS", "PROGRAM", "STATIC", "OBJECT", "CULTURE",
+                "TIGER", "POSITIVE", "DART", "FLAME", "EAGLE",
+                "ANSWER", "FROST", "SWORD", "CLASS", "BLOSSOM",
+                "EIFFEL", "ENGINEER", "OCEAN", "COMPUTER", "SCIENCE",
+            };
+            
+            case "HARD" -> words = new String[]{
+                "PROGRAMMING", "STRAWBERRY", "VARIABLES", "RECONCILIATION", "CIRCUMFERENCE",
+                "SUNSHINE", "JAVASCRIPT", "ENCAPSULATION", "PROCEDURAL", "ABSTRACTION",
+                "ARCHEOLOGY", "BUREAUCRACY", "POLYMORPHISM", "RELATIONSHIP", "PRELLELOGRAM",
+                "UNIVERSE", "INHERITANCE", "JUSTIFICATION", "TECHNOLOGY", "IRRESPONSIBILTY",
+            };
+            
+            default -> words = new String[]{"HELLO", "JAVA", "CODE", "GAME", "MOUSE"};
+            }
+        
+        this.currentDifficulty = difficulty; 
+        
+        //this are the positions of those words
+        x = new int[words.length];
+        y = new int[words.length];
+        visible = new boolean[words.length];
+        
+        java.util.Random rand = new java.util.Random();
+        for (int n = 0; n<words.length; n++){
+            x[n] = 50 + rand.nextInt(550);
+            y[n] = -(50 + (n * 80));
+            visible[n] = true;
+        }
+        
+        //reset values
+        score = 0;
+        mistakes = 0;
+        scoreField.setText("0");
+        mistakeField.setText("0");
+ 
+        startTime = System.currentTimeMillis();
+        
+        //fall speed based on mode chosen
+        int speed;
+        speed = switch (difficulty) {
+            case "EASY" -> 2;
+            case "MEDIUM" -> 4;
+            case "HARD" -> 6;
+            default -> 3;
+        };
+        
                 
         timer = new javax.swing.Timer(30, (ActionEvent e) -> {
             for (int i=0; i<y.length; i++){
                 
                 if (visible[i]){
-                    y[i] += 3;
+                    y[i] += speed;
                     
                     if (y[i] > 600){
                         visible[i] = false;
@@ -88,6 +151,7 @@ public class GameFrame extends javax.swing.JFrame {
                 }
 
             }
+            respawnWords();
             repaint();
         });
         
@@ -96,6 +160,24 @@ public class GameFrame extends javax.swing.JFrame {
         timer.start();
     }
     
+    private void respawnWords(){
+        boolean allGone = true;
+        for (boolean v : visible) {
+            if (v) {
+                allGone = false;
+                break;
+            }
+        }
+        
+        if (allGone){
+            java.util.Random rand = new java.util.Random();
+            for (int i=0; i<words.length; i++){
+                x[i] = 50 + rand.nextInt(550);
+                y[i] = -(50 + (i * 80));
+                visible[i] = true;
+            }
+        }
+    }
     
     class GamePanel extends JPanel{
     
@@ -104,6 +186,8 @@ public class GameFrame extends javax.swing.JFrame {
 
             super.paintComponent(g);
             setOpaque(false);
+            
+            if (words == null) return;
 
             g.setFont(new Font("Arial", Font.BOLD, 20));
 
@@ -113,6 +197,22 @@ public class GameFrame extends javax.swing.JFrame {
                 }
             }
         }
+    }
+    
+    private javax.swing.Timer gameTimer;
+    
+   public void pauseGame() {
+    if (timer != null) timer.stop();
+    }
+
+    public void resumeGame() {
+    if (timer != null) timer.start();
+    }  
+    
+    public void restartGame() {
+    // reset your game state here
+        timer.stop();
+        timer.start();
     }
     
      
@@ -148,21 +248,24 @@ public class GameFrame extends javax.swing.JFrame {
         typeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         typeField.addActionListener(this::typeFieldActionPerformed);
 
-        scoreLabel.setFont(new java.awt.Font("MS UI Gothic", 0, 14)); // NOI18N
+        scoreLabel.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         scoreLabel.setForeground(new java.awt.Color(0, 51, 51));
         scoreLabel.setText("Score:");
 
         scoreField.setBackground(new java.awt.Color(153, 255, 204));
+        scoreField.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
+        scoreField.addActionListener(this::scoreFieldActionPerformed);
 
-        mistakeLabel.setFont(new java.awt.Font("MS UI Gothic", 0, 14)); // NOI18N
+        mistakeLabel.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
         mistakeLabel.setForeground(new java.awt.Color(0, 51, 51));
         mistakeLabel.setText("Mistakes:");
 
         mistakeField.setBackground(new java.awt.Color(153, 255, 204));
+        mistakeField.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(162, 188, 224));
 
-        currentHighScore.setFont(new java.awt.Font("MS UI Gothic", 0, 20)); // NOI18N
+        currentHighScore.setFont(new java.awt.Font("MS UI Gothic", 1, 20)); // NOI18N
         currentHighScore.setForeground(new java.awt.Color(0, 0, 0));
         currentHighScore.setText("Highest Score:");
 
@@ -179,7 +282,7 @@ public class GameFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(currentHighScore)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(currentHighScoreField)
+                .addComponent(currentHighScoreField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
@@ -203,22 +306,23 @@ public class GameFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
+                        .addGap(153, 153, 153)
                         .addComponent(scoreLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scoreField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(scoreField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
+                        .addGap(73, 73, 73)
                         .addComponent(mistakeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mistakeField, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(397, 397, 397)
+                        .addGap(385, 385, 385)
                         .addComponent(pauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -272,6 +376,7 @@ public class GameFrame extends javax.swing.JFrame {
                 
                 if (score > highScore) {
                     highScore = score;
+                
                 }
                 
                 currentHighScoreField.setText(String.valueOf(highScore));
@@ -293,9 +398,20 @@ public class GameFrame extends javax.swing.JFrame {
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
         // TODO add your handling code here:
-        pauseFrame pf = new pauseFrame();
+        if (timer != null) {
+            timer.stop(); // stop words from falling
+        }
+        pauseFrame pf = new pauseFrame(this, currentDifficulty);
         pf.setVisible(true);
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            typeField.requestFocusInWindow();
+        });
     }//GEN-LAST:event_pauseButtonActionPerformed
+
+    private void scoreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoreFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scoreFieldActionPerformed
 
     /**
      * @param args the command line arguments

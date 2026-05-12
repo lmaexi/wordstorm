@@ -16,6 +16,7 @@ public class tutorialFrame extends javax.swing.JFrame {
      */
     public tutorialFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -16,6 +16,8 @@ public class mainFrame extends javax.swing.JFrame {
     /**
      * Creates new form mainFrame
      */
+    
+    
     public mainFrame() {
         initComponents();
         
@@ -116,8 +118,8 @@ public class mainFrame extends javax.swing.JFrame {
 
     private void playbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playbuttonActionPerformed
         // TODO add your handling code here:
-        GameFrame gf = new GameFrame();
-        gf.setVisible(true);
+        gameModeFrame gmf = new gameModeFrame();
+        gmf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_playbuttonActionPerformed
 

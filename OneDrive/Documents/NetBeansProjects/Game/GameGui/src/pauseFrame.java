@@ -9,15 +9,30 @@
  */
 public class pauseFrame extends javax.swing.JFrame {
     
+    
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(pauseFrame.class.getName());
 
     /**
      * Creates new form pauseFrame
      */
+    
+    
     public pauseFrame() {
         initComponents();
+        
+        setLocationRelativeTo(null);
     }
+    
+    private GameFrame gameFrame; 
+    private String difficulty;
 
+    public pauseFrame(GameFrame gameFrame, String difficulty) { 
+        initComponents();
+        setLocationRelativeTo(null);
+        this.gameFrame = gameFrame;
+        this.difficulty = difficulty;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,8 +45,8 @@ public class pauseFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        resumeButton = new javax.swing.JButton();
+        restartButton = new javax.swing.JButton();
         homeBotton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,17 +59,17 @@ public class pauseFrame extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(162, 188, 224));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton1.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("RESUME");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        resumeButton.setBackground(new java.awt.Color(204, 204, 255));
+        resumeButton.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
+        resumeButton.setForeground(new java.awt.Color(0, 0, 0));
+        resumeButton.setText("RESUME");
+        resumeButton.addActionListener(this::resumeButtonActionPerformed);
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 255));
-        jButton2.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("RESTART");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        restartButton.setBackground(new java.awt.Color(204, 204, 255));
+        restartButton.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
+        restartButton.setForeground(new java.awt.Color(0, 0, 0));
+        restartButton.setText("RESTART");
+        restartButton.addActionListener(this::restartButtonActionPerformed);
 
         homeBotton.setBackground(new java.awt.Color(204, 204, 255));
         homeBotton.setFont(new java.awt.Font("MS UI Gothic", 3, 18)); // NOI18N
@@ -70,18 +85,17 @@ public class pauseFrame extends javax.swing.JFrame {
                 .addGap(87, 87, 87)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(homeBotton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(restartButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(resumeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(resumeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(restartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(homeBotton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(70, Short.MAX_VALUE))
@@ -125,16 +139,21 @@ public class pauseFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void resumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resumeButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        gameFrame.resumeGame(); // resume the game loop
+        this.dispose();  
+    }//GEN-LAST:event_resumeButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        this.dispose();
+        gameFrame.startGame(difficulty);
+    }//GEN-LAST:event_restartButtonActionPerformed
 
     private void homeBottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBottonActionPerformed
         // TODO add your handling code here:
+        gameFrame.dispose();
         mainFrame mf = new mainFrame();
         mf.setVisible(true);
         this.dispose(); 
@@ -167,10 +186,10 @@ public class pauseFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton homeBotton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton restartButton;
+    private javax.swing.JButton resumeButton;
     // End of variables declaration//GEN-END:variables
 }
